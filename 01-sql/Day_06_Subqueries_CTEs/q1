@@ -1,0 +1,16 @@
+Problem 1 — Finding Updated Records
+
+Platform: StrataScratch
+Concept: Subquery in FROM using ROW_NUMBER window function
+Task: From an employee salary table that may contain duplicate records, return only the most recent (highest salary) record per employee ID.
+Logic: The inner query ranks each employee's records by salary (descending). The outer query filters to only the top-ranked row per employee.
+
+
+SELECT id, first_name, last_name, department_id, salary
+FROM (
+SELECT *,
+ROW_NUMBER() OVER (PARTITION BY id ORDER BY salary DESC, department_id DESC) AS rn
+FROM ms_employee_salary
+) s
+WHERE rn = 1
+ORDER BY id ASC;
