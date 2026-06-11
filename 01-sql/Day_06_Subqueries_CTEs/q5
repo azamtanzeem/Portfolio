@@ -1,0 +1,23 @@
+Problem 5 — Monthly Revenue Percentage Change
+
+Platform: StrataScratch
+Concept: CTE + LAG window function for period-over-period calculation
+Task: Calculate the month-over-month percentage change in revenue from the transactions table.
+Logic: Aggregating first inside a CTE is necessary because PostgreSQL does not allow LAG(SUM(...)) in a single query pass. The CTE computes monthly totals first, then the outer query applies LAG to compare each month against the previous one.
+
+
+WITH monthly AS (
+SELECT
+TO_CHAR(created_at::date, 'YYYY-MM') AS year_month,
+SUM(value) AS total_revenue
+FROM sf_transactions
+GROUP BY year_month
+)
+SELECT
+year_month,
+ROUND(
+((total_revenue - LAG(total_revenue) OVER (ORDER BY year_month)) /
+LAG(total_revenue) OVER (ORDER BY year_month)) * 100, 2
+) AS revenue_diff_pct
+FROM monthly
+ORDER BY year_month ASC;
