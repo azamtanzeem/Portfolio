@@ -1,0 +1,16 @@
+Problem 3 — App Click-Through Rate (CTR)
+
+Platform: DataLemur
+Concept: Conditional aggregation using CASE WHEN inside COUNT
+Task: Calculate the click-through rate per app for the year 2022, defined as (clicks / impressions) × 100.
+Logic: Two CASE WHEN expressions inside COUNT separate clicks from impressions in a single pass over the data. Dividing and multiplying by 100 gives the percentage rate per app.
+
+
+SELECT app_id,
+ROUND(100.0 *
+COUNT(CASE WHEN event_type = 'click' THEN 1 ELSE NULL END) /
+COUNT(CASE WHEN event_type = 'impression' THEN 1 ELSE NULL END), 2) AS ctr_rate
+FROM events
+WHERE timestamp >= '2022-01-01'
+AND timestamp < '2023-01-01'
+GROUP BY app_id;
