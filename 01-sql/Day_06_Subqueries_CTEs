@@ -1,0 +1,13 @@
+Concept: Subquery in FROM using ROW_NUMBER window function
+Task: From an employee salary table that may contain duplicate records, return only the most recent (highest salary) record per employee ID.
+Logic: The inner query ranks each employee's records by salary (descending). The outer query filters to only the top-ranked row per employee.
+
+
+select id, first_name, last_name, department_id, salary
+from (
+select *,
+row_number() over(partition by id order by salary desc, department_id desc) as rn
+from ms_employee_salary
+) s
+where rn = 1
+order by id asc;
