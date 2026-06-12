@@ -1,11 +1,11 @@
--- ============================================================
--- DataLemur | Difficulty: Easy
--- Topic: SELECT, WHERE, GROUP BY, COUNT
--- Platform: Twitter / X
--- Question: Obtain a histogram of tweets posted per user in 2022.
---           Output tweet count per user as the bucket and the
---           number of users who fall into that bucket.
--- ============================================================
+
+DataLemur | Difficulty: Easy
+Topic: SELECT, WHERE, GROUP BY, COUNT
+Platform: Twitter / X
+Question: Obtain a histogram of tweets posted per user in 2022.
+Output tweet count per user as the bucket and the
+number of users who fall into that bucket.
+
 
 SELECT
     tweet_count_per_user,
@@ -20,11 +20,11 @@ FROM (
 ) AS total_tweets
 GROUP BY tweet_count_per_user;
 
--- ============================================================
--- KEY CONCEPTS USED:
---   WHERE with BETWEEN  → inclusive date range filter
---   COUNT(tweet_id)     → counts non-NULL tweet IDs per user
---   GROUP BY user_id    → one row per user
---   Outer GROUP BY      → groups users by their tweet count
---                         to build the histogram buckets
--- ============================================================
+
+KEY CONCEPTS USED:
+WHERE with BETWEEN  → inclusive date range filter
+COUNT(tweet_id)     → counts non-NULL tweet IDs per user
+GROUP BY user_id    → one row per user
+Outer GROUP BY      → groups users by their tweet count
+to build the histogram buckets
+
