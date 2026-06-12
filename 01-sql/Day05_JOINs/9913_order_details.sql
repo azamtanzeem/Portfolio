@@ -1,8 +1,8 @@
--- Problem: Order Details
--- Platform: StrataScratch #9913
--- Difficulty: Easy
--- JOIN Type: LEFT JOIN (multi-table)
--- Date: 2026-06-10
+Problem: Order Details
+Platform: StrataScratch #9913
+Difficulty: Easy
+JOIN Type: LEFT JOIN (multi-table)
+Date: 2026-06-10
 
 SELECT o.order_date, o.order_details, o.total_order_cost, c.first_name
 FROM customers c 
