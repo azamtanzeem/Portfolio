@@ -1,7 +1,7 @@
--- Problem: FULL OUTER JOIN Bonus Exercise
--- Platform: Self-written
--- Date: 2026-06-10
--- Note: MySQL workaround — UNION of LEFT + RIGHT JOIN
+Problem: FULL OUTER JOIN Bonus Exercise
+Platform: Self-written
+Date: 2026-06-10
+Note: MySQL workaround — UNION of LEFT + RIGHT JOIN
 
 -- PostgreSQL (native)
 SELECT l.id, r.id, l.val, r.val
