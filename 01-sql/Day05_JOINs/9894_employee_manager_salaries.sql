@@ -1,8 +1,8 @@
--- Problem: Employee and Manager Salaries
--- Platform: StrataScratch #9894
--- Difficulty: Medium
--- JOIN Type: Self JOIN
--- Date: 2026-06-10
+Problem: Employee and Manager Salaries
+Platform: StrataScratch #9894
+Difficulty: Medium
+JOIN Type: Self JOIN
+Date: 2026-06-10
 
 SELECT emp.first_name, emp.salary
 FROM employee emp
