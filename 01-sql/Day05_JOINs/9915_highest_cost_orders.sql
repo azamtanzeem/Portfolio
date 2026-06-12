@@ -1,8 +1,8 @@
--- Problem: Highest Cost Orders
--- Platform: StrataScratch #9915
--- Difficulty: Medium
--- JOIN Type: INNER JOIN + CTE + DENSE_RANK
--- Date: 2026-06-10
+Problem: Highest Cost Orders
+Platform: StrataScratch #9915
+Difficulty: Medium
+JOIN Type: INNER JOIN + CTE + DENSE_RANK
+Date: 2026-06-10
 
 WITH DailyCustomerTotals AS (
     SELECT 
