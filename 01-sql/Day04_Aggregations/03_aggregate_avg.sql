@@ -8,13 +8,13 @@ Order by month then product_id.
 
 
 SELECT
-    EXTRACT(MONTH FROM submit_date) AS mth,   -- pull month number from date
+    EXTRACT(MONTH FROM submit_date) AS mth,   
     product_id,
     ROUND(AVG(stars), 2)            AS avg_stars
 FROM reviews
 GROUP BY
-    EXTRACT(MONTH FROM submit_date),           -- group by month expression
-    product_id                                 -- and by product
+    EXTRACT(MONTH FROM submit_date),           
+    product_id                                
 ORDER BY mth, product_id;
 
 
