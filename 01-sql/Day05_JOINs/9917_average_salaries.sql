@@ -1,8 +1,8 @@
--- Problem: Average Salaries
--- Platform: StrataScratch #9917
--- Difficulty: Easy
--- JOIN Type: INNER JOIN (subquery)
--- Date: 2026-06-10
+Problem: Average Salaries
+Platform: StrataScratch #9917
+Difficulty: Easy
+JOIN Type: INNER JOIN (subquery)
+Date: 2026-06-10
 
 SELECT e.department, first_name, salary, avg_salary
 FROM employee e 
