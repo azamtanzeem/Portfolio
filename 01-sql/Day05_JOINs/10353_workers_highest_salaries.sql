@@ -1,8 +1,8 @@
--- Problem: Workers With The Highest Salaries
--- Platform: StrataScratch #10353
--- Difficulty: Medium
--- JOIN Type: INNER JOIN + correlated subquery
--- Date: 2026-06-10
+Problem: Workers With The Highest Salaries
+Platform: StrataScratch #10353
+Difficulty: Medium
+JOIN Type: INNER JOIN + correlated subquery
+Date: 2026-06-10
 
 SELECT t.worker_title AS best_paid_title
 FROM worker w
