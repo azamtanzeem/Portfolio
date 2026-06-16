@@ -1,0 +1,13 @@
+Problem: Salaries Differences
+Platform: StrataScratch | Difficulty: Medium
+Window Function Used: None (MAX + CASE pattern)
+Key Logic: Use conditional MAX to isolate highest salary per department, subtract to get the difference
+
+-- SOLUTION
+SELECT
+    ABS(
+        MAX(CASE WHEN d.department = 'marketing' THEN e.salary END) -
+        MAX(CASE WHEN d.department = 'engineering' THEN e.salary END)
+    ) AS salary_difference
+FROM db_employee e
+JOIN db_dept d ON e.department_id = d.id;
