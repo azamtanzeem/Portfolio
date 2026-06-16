@@ -1,0 +1,47 @@
+Problem: Complex Real-World Example — Sales Rep Performance Ranking
+Platform: Self-built portfolio example
+Window Function Used: ROW_NUMBER(), RANK(), DENSE_RANK(), SUM() OVER()
+Key Logic: Rank sales reps by revenue within each region, show all three functions side by side, add % of region revenue and performance tier label
+
+-- SOLUTION
+WITH sales_data AS (
+    SELECT 'North' AS region, 'Ali Hassan'  AS sales_rep, 92000  AS revenue, 'Q1 2024' AS quarter
+    UNION ALL SELECT 'North', 'Sara Ahmed',  87000, 'Q1 2024'
+    UNION ALL SELECT 'North', 'Omar Sheikh', 87000, 'Q1 2024'
+    UNION ALL SELECT 'North', 'Priya Nair',  73000, 'Q1 2024'
+    UNION ALL SELECT 'South', 'Raj Menon',   95000, 'Q1 2024'
+    UNION ALL SELECT 'South', 'Mia Torres',  88000, 'Q1 2024'
+    UNION ALL SELECT 'South', 'James Liu',   88000, 'Q1 2024'
+    UNION ALL SELECT 'South', 'Fatima Al',   60000, 'Q1 2024'
+    UNION ALL SELECT 'West',  'Chen Wei',   110000, 'Q1 2024'
+    UNION ALL SELECT 'West',  'Nina Patel',  98000, 'Q1 2024'
+    UNION ALL SELECT 'West',  'Arjun Das',   85000, 'Q1 2024'
+),
+ranked AS (
+    SELECT
+        region,
+        sales_rep,
+        revenue,
+        quarter,
+        ROW_NUMBER()  OVER (PARTITION BY region ORDER BY revenue DESC) AS row_num,
+        RANK()        OVER (PARTITION BY region ORDER BY revenue DESC) AS revenue_rank,
+        DENSE_RANK()  OVER (PARTITION BY region ORDER BY revenue DESC) AS dense_revenue_rank,
+        ROUND(
+            revenue * 100.0 / SUM(revenue) OVER (PARTITION BY region),
+        2) AS pct_of_region_revenue
+    FROM sales_data
+)
+SELECT
+    region,
+    revenue_rank            AS rank,
+    dense_revenue_rank      AS dense_rank,
+    sales_rep,
+    revenue,
+    pct_of_region_revenue   AS region_revenue_pct,
+    CASE
+        WHEN dense_revenue_rank = 1 THEN 'Top Performer'
+        WHEN dense_revenue_rank = 2 THEN 'Runner Up'
+        ELSE 'Contributor'
+    END                     AS performance_tier
+FROM ranked
+ORDER BY region, revenue_rank;
