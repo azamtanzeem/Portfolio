@@ -1,0 +1,18 @@
+Problem: Top Ranked Songs
+Platform: StrataScratch | Difficulty: Medium
+Window Function Used: DENSE_RANK()
+Key Logic: Count appearances at position 1 per track, DENSE_RANK on that count so tied tracks share the same rank
+
+-- SOLUTION
+WITH song_counts AS (
+    SELECT
+        trackname,
+        COUNT(trackname) AS times_number_one,
+        DENSE_RANK() OVER (ORDER BY COUNT(trackname) DESC) AS rank
+    FROM spotify_worldwide_daily_song_ranking
+    WHERE position = 1
+    GROUP BY trackname
+)
+SELECT trackname, times_number_one, rank
+FROM song_counts
+ORDER BY rank ASC;
