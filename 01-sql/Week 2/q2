@@ -1,0 +1,18 @@
+Problem: User with Most Approved Flags
+Platform: StrataScratch | Difficulty: Medium
+Window Function Used: DENSE_RANK()
+Key Logic: Join flags to reviews, filter approved, count distinct videos flagged per user, DENSE_RANK to handle ties at the top
+
+-- SOLUTION
+WITH flagged_and_approved AS (
+    SELECT
+        CONCAT(uf.user_firstname, ' ', uf.user_lastname) AS full_name,
+        DENSE_RANK() OVER (ORDER BY COUNT(DISTINCT uf.video_id) DESC) AS rank_position
+    FROM user_flags uf
+    JOIN flag_review fr ON uf.flag_id = fr.flag_id
+    WHERE LOWER(fr.reviewed_outcome) = 'approved'
+    GROUP BY uf.user_firstname, uf.user_lastname
+)
+SELECT full_name
+FROM flagged_and_approved
+WHERE rank_position = 1;
