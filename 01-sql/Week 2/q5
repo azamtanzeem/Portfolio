@@ -1,0 +1,18 @@
+Problem: Workers With The Highest Salaries
+Platform: StrataScratch | Difficulty: Medium
+Window Function Used: DENSE_RANK()
+Key Logic: DENSE_RANK on salary desc globally, filter rank=1 to capture all tied top earners
+
+-- SOLUTION
+WITH ranked_workers AS (
+    SELECT
+        e.worker_id,
+        e.salary,
+        t.worker_title,
+        DENSE_RANK() OVER (ORDER BY e.salary DESC) AS salary_rank
+    FROM worker e
+    JOIN title t ON e.worker_id = t.worker_ref_id
+)
+SELECT worker_title
+FROM ranked_workers
+WHERE salary_rank = 1;
