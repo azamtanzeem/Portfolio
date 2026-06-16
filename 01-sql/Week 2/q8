@@ -1,0 +1,18 @@
+Problem: Popularity of Hack
+Platform: StrataScratch | Difficulty: Medium
+Window Function Used: RANK()
+Key Logic: Average popularity score per office location, RANK to order locations from most to least popular
+
+-- SOLUTION
+WITH location_popularity AS (
+    SELECT
+        e.location,
+        AVG(s.popularity) AS avg_popularity,
+        RANK() OVER (ORDER BY AVG(s.popularity) DESC) AS popularity_rank
+    FROM facebook_employees AS e
+    JOIN facebook_hack_survey AS s ON e.id = s.employee_id
+    GROUP BY e.location
+)
+SELECT location, avg_popularity, popularity_rank
+FROM location_popularity
+ORDER BY popularity_rank ASC;
