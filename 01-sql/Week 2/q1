@@ -1,0 +1,13 @@
+Problem: Ranking Most Active Guests
+Platform: StrataScratch | Difficulty: Medium
+Window Function Used: DENSE_RANK()
+Key Logic: Sum messages per guest, apply DENSE_RANK globally ordered by total desc so ties share the same rank
+
+-- SOLUTION
+SELECT
+    id_guest,
+    SUM(n_messages) AS total_messages,
+    DENSE_RANK() OVER (ORDER BY SUM(n_messages) DESC) AS rank
+FROM airbnb_contacts
+GROUP BY id_guest
+ORDER BY total_messages DESC;
