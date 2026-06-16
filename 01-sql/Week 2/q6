@@ -1,0 +1,13 @@
+Problem: Activity Rank
+Platform: StrataScratch | Difficulty: Medium
+Window Function Used: ROW_NUMBER()
+Key Logic: Count emails sent per user, ROW_NUMBER ordered by count desc then username asc to break ties alphabetically
+
+-- SOLUTION
+SELECT
+    from_user AS user,
+    COUNT(*) AS total_emails,
+    ROW_NUMBER() OVER (ORDER BY COUNT(*) DESC, from_user ASC) AS activity_rank
+FROM google_gmail_emails
+GROUP BY from_user
+ORDER BY total_emails DESC, user ASC;
