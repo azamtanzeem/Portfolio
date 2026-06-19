@@ -1,0 +1,20 @@
+solution 11
+
+-- QUESTION:
+-- Calculate a 3-day moving average of daily withdrawals per ATM.
+-- The window = current day + 2 preceding days.
+-- Round to 0 decimal places.
+-- Output: atm_id, withdrawal_date, total_amount, moving_avg_3day
+-- Problem  : 3-Day Moving Average (ATM Withdrawals)
+-- Function : AVG() OVER with ROWS BETWEEN
+-- Pattern  : Moving/rolling average — UAE fintech staple
+
+
+select atm_id, withdrawal_date, total_amount,
+ROUND(
+  AVG(total_amount) over
+ (partition by atm_id 
+  order by withdrawal_date), 0)
+  as moving_avg_3day
+  from atm_withdrawals
+  order by atm_id, withdrawal_date
