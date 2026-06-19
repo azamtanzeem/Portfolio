@@ -1,0 +1,22 @@
+solution 10 
+
+-- QUESTION:
+-- Show each branch's daily deposit and its running total up to that day.
+-- Output: branch_id, deposit_date, deposit_amount, running_total
+-- Problem  : Cumulative Deposits Per Branch
+-- Function : SUM() OVER with ORDER BY
+-- Pattern  : Running total — most common aggregate window Q
+
+
+select
+branch_id,
+deposit_date,
+deposit_amount,
+sum(deposit_amount) over 
+(partition by branch_id 
+order by deposit_date
+rows between unbounded preceding and current row
+ ) as running_total
+ from daily_deposits
+order by branch_id, deposit_date
+
