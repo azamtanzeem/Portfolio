@@ -1,0 +1,11 @@
+solution 2
+Odd and Even Measurements (Google) - DataLemur
+
+with measurement_count AS (
+select 
+CAST(measurement_time as date) as measurement_day,
+measurement_value,
+row_number() over (partition by cast(measurement_time as date)
+order by measurement_time) as measurement_num
+from measurements
+)
