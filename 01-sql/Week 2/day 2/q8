@@ -1,0 +1,22 @@
+solution 8 
+
+-- QUESTION:
+-- Divide customers into 4 risk tiers based on credit score (highest = tier 1).
+-- Label tiers: 1=Prime, 2=Near-Prime, 3=Subprime, 4=Deep-Subprime
+-- Output: customer_id, credit_score, tier_number, tier_label
+-- Problem  : Customer Risk Tier Segmentation
+-- Function : NTILE(4)
+-- Pattern  : Quartile bucket assignment
+
+
+select customer_id,
+credit_score, 
+NTILE(4) over (order by credit_score desc) as tier_number,
+case ntile(4) over (order by credit_score desc)
+when 1 then 'prime'
+when 2 then 'near-prime'
+when 3 then 'subprime'
+when 4 then 'deep subprime'
+end as tier_label
+from customer_credit_scores
+order by credit_score desc
