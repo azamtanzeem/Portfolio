@@ -1,0 +1,24 @@
+solution 7 
+
+-- QUESTION:
+-- Find all rows where an account's balance will DROP in the next snapshot.
+-- Output: account_id, snapshot_date, balance, next_balance, drop_amount
+-- Problem  : Balance Drop Detection
+-- Function : LEAD
+-- Pattern  : Forward comparison + filter
+
+
+with cte as (
+  select account_id, snapshot_date, balance,
+lead(balance) over (partition by account_id order by snapshot_date) as next_balance
+  from account_balances
+  )
+  
+  select 
+  account_id, snapshot_date, balance, next_balance,
+  balance - next_balance as drop_amount
+  from cte
+  where next_balance is not null
+  and next_balance < balance
+  order by account_id, snapshot_date
+
