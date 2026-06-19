@@ -1,0 +1,30 @@
+solution 3  
+Top 5 Artists (Spotify) - DataLemur
+
+-- getting a count of songs in top 10
+WITH songs_count AS (
+SELECT song_id, 
+  COUNT(*) AS times_song_top10
+FROM global_song_rank
+WHERE rank <= 10
+GROUP BY song_id), 
+
+-- getting the total times an artist got top 10, and ranking artists
+artists_ranked AS(
+SELECT artist_id, 
+  SUM(times_song_top10) AS times_artist_top10, 
+  DENSE_RANK() OVER(ORDER BY SUM(times_song_top10) DESC) AS artist_rank
+FROM songs_count
+LEFT JOIN songs
+ON songs.song_id = songs_count.song_id
+GROUP BY artist_id
+ORDER BY times_artist_top10 DESC) 
+
+-- getting the artist name, and only artists whose rank is over 5
+SELECT artist_name, 
+  artist_rank
+FROM artists_ranked
+LEFT JOIN artists
+ON artists.artist_id = artists_ranked.artist_id
+WHERE artist_rank <= 5 
+ORDER BY artist_rank ASC, artists_ranked.artist_id 
