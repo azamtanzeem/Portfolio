@@ -1,0 +1,22 @@
+solution 4 
+
+-- QUESTION:
+-- Show each month, its total_amount, the previous month's total,
+-- and the % change rounded to 2 decimal places.
+-- Output: month_date, total_amount, prev_month_amount, pct_change
+-- Problem  : MoM Transaction Growth
+-- Function : LAG
+-- Pattern  : Time-series comparison
+
+
+SELECT
+    month_date,
+    total_amount,
+    LAG(total_amount) OVER (ORDER BY month_date) AS prev_month_amount,
+    ROUND(
+        (total_amount - LAG(total_amount) OVER (ORDER BY month_date))
+        / LAG(total_amount) OVER (ORDER BY month_date) * 100,
+        2
+    ) AS pct_change
+FROM monthly_transactions
+ORDER BY month_date;
