@@ -1,0 +1,23 @@
+solution 5 
+
+-- QUESTION:
+-- For each transaction, show whether the PREVIOUS transaction 
+-- by the same customer was also declined. 
+-- Output: txn_id, customer_id, txn_date, status, prev_status, is_consecutive_decline (Y/N)
+-- Problem  : Consecutive Declined Transactions
+-- Function : LAG with PARTITION BY
+-- Pattern  : Per-customer row comparison
+
+select 
+txn_id,
+customer_id,
+txn_date,
+status,
+lag(status) over (partition by customer_id order by txn_date) as prev_status,
+case when status = 'declined' 
+AND lag(status) over (partition by customer_id order by txn_date) = 'declined'
+then 'y'
+else 'n'
+end as is_consecutive_decline
+from transactions
+order by customer_id, txn_date
