@@ -1,0 +1,18 @@
+solution 6 
+
+-- QUESTION:
+-- For each login, show days until that customer's NEXT login.
+-- If it's their last login, show NULL.
+-- Output: customer_id, login_date, next_login_date, days_until_next
+-- Problem  : Days Until Next Login
+-- Function : LEAD
+-- Pattern  : Forward-looking time gap
+
+select customer_id, 
+login_date,
+lead(login_date) over (partition by customer_id order by login_date) as next_login_date,
+lead(login_date) over (partition by customer_id order by login_date) - login_date as days_until_next
+from customer_logins
+order by customer_id, login_date
+
+
