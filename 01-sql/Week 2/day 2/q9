@@ -1,0 +1,20 @@
+solution 9
+
+-- QUESTION:
+-- Identify customers in the TOP 20% by annual spend (quintile 1).
+-- Output: customer_id, total_annual_spend, spend_quintile
+-- Only return the top quintile rows.
+-- Problem  : Top 20% Customer Identification
+-- Function : NTILE(5)
+-- Pattern  : Filter on top bucket — common fintech interview Q
+
+
+with quintiles as (
+  select customer_id, total_annual_spend,
+  NTILE(5) OVER (order by total_annual_spend desc) as spend_quintile
+  from customer_spend
+  )
+  select *
+  from quintiles 
+  where spend_quintile = 1
+  order by total_annual_spend desc
