@@ -1,8 +1,11 @@
 # UAE Luxury Watch Market Dataset
 
 **Tools:** 
-Python · Pandas · Matplotlib · Seaborn · Jupyter 
-**Records:** 515 cleaned listings | **Source:** Chrono24 UAE schema
+Python · Pandas · Matplotlib · Seaborn · Jupyter
+
+**Records:** 515 cleaned listings 
+
+**Source:** Chrono24 UAE schema
 
 ## What I built
 Attempted live scraping of Chrono24 UAE. Documented Cloudflare and JS rendering 
