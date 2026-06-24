@@ -1,6 +1,6 @@
-# Day 13 — Power BI: Data Layer
+ Power BI: Data Layer
 
-**Date:** 22 June 2026
+**Date:** 24 June 2026
 **Tools:** Power BI Desktop, Power Query, M Language
 
 ---
