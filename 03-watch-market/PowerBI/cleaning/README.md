@@ -7,8 +7,10 @@
 
 ## What I did
 
-Loaded the UAE luxury watch market dataset into Power BI Desktop and built a 
+24 June - Loaded the UAE luxury watch market dataset into Power BI Desktop and built a 
 cleaned, merged data model using Power Query.
+
+25 June - Star schema review, cardinality, cross-filter direction, 6 custom DAX measures (COUNT, AVERAGE, CALCULATE, ALL, DIVIDE, SUMX)
 
 ---
 
