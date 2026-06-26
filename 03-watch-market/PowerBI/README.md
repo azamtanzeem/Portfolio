@@ -11,7 +11,7 @@ Files: `UAE_Watch_Market.pbix` (interactive) | `UAE_Watch_Market.pdf` (static ex
 
 
 
-## 26 June 2025 — Week 3 Day 3: Power BI Full Interactive Report
+## 26 June 2025: Power BI Full Interactive Report
 
 Built a complete 3-page interactive Power BI report on the UAE luxury watch dataset as a portfolio piece.
 
